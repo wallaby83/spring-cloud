@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: catalog-service
+    name: order-service
   h2:
     console:
       enabled: true
@@ -13,20 +13,14 @@ spring:
         web-admin-password: 1234
       path: /h2-console
   datasource:
-    url: jdbc:h2:~/dev/workspace/spring-cloud/h2/catalog
+    url: jdbc:h2:~/dev/workspace/spring-cloud/h2/order
     driver-class-name: org.h2.Driver
     use rname: sa
   jpa:
-#    database-platform: org.hibernate.dialect.H2Dialect
+    #    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: true
-#    generate-ddl: true
-    database: h2
-    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
 
 eureka:
   instance:
@@ -40,4 +34,4 @@ eureka:
 
 logging:
   level:
-    kr.wallaby.catalogservice: DEBUG
+    kr.wallaby.orderservice: DEBUG
