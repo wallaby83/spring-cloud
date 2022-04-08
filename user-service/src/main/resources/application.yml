@@ -1,6 +1,9 @@
 server:
   port: 0
 
+logging:
+  level:
+    kr.wallaby.springcloud.userservice: DEBUG
 
 spring:
   application:
@@ -32,3 +35,7 @@ eureka:
 greeting:
   message: Welcome to the Simple E-commerce...
   name: wallaby
+
+token:
+  expiration_time: 86400000
+  secret: user_token

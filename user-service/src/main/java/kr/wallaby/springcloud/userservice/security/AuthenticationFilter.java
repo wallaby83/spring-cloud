@@ -1,6 +1,8 @@
 package kr.wallaby.springcloud.userservice.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import kr.wallaby.springcloud.userservice.dto.UserDto;
 import kr.wallaby.springcloud.userservice.service.UserService;
 import kr.wallaby.springcloud.userservice.vo.RequestLogin;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 @RequiredArgsConstructor
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -49,5 +52,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             Authentication authResult) throws IOException, ServletException {
         String userName = ((User)authResult.getPrincipal()).getUsername();
         UserDto userDetail = this.userService.getUserDetailsByEmail(userName);
+
+        String token = Jwts.builder()
+                .setSubject(userDetail.getUserId())
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(env.getProperty("token.expiration_time", "86400000"))))
+                .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))
+                .compact();
+
+        response.setHeader("token", token);
+        response.setHeader("userId", userDetail.getUserId());
     }
 }
