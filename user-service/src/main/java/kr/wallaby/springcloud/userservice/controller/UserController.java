@@ -9,6 +9,7 @@ import kr.wallaby.springcloud.userservice.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +23,16 @@ import java.util.List;
 public class UserController {
     private final Greeting greeting;
     private final UserService userService;
+    private final Environment env;
 
     @GetMapping("/health_check")
     public String status() {
-        return "It's Working in User Service.";
+        return "It's Working in User Service." +
+                " port(local.server.port)=" + env.getProperty("local.server.port") +
+                "\n port(server.port)=" + env.getProperty("server.port") +
+                "\n token secret=" + env.getProperty("token.secret") +
+                "\n token expiration time=" + env.getProperty("token.expiration_time")
+                ;
     }
 
     @GetMapping("/welcome")
