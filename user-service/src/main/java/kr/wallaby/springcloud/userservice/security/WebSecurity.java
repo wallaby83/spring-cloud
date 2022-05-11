@@ -25,7 +25,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/welcome/**").permitAll()
 //                .antMatchers("/health_check/**").permitAll()
-                .antMatchers("/users/**")
+                .antMatchers("/actuator/**").permitAll()
+//                .antMatchers("/users/**")
+                .antMatchers("/**")
 //                .hasIpAddress(env.getProperty("gateway.ip")) // <- IP 변경
 //                .authenticated()
                 .permitAll()
