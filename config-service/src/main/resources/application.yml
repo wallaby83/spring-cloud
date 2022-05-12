@@ -8,4 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: file:///Users/wallaby/dev/workspace/spring-cloud-ecommerce-config
+#          uri: file:///Users/wallaby/dev/workspace/spring-cloud-ecommerce-config
+          uri: https://github.com/wallaby83/spring-cloud-ecommerce-config.git
+#          username: [my username]   # for Private repository
+#          password: [my password]   # for Private repository
